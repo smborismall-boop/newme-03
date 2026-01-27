@@ -1,97 +1,81 @@
-# NEWME CLASS - Platform Test Kepribadian
+# NEWMECLASS Website - PRD
 
-## Problem Statement
-1. Bug fix: Pertanyaan tidak muncul saat user mencoba test gratis/berbayar
-2. Feature request: AI Analysis integration, Payment Gateway (Midtrans), PDF Certificate generation
-3. Admin management: Hapus demo credentials, tambah menu manajemen admin
+## Original Problem Statement
+User ingin menambahkan slider yang cocok dengan tema website NEWMECLASS dan menambahkan elemen agar website tidak terlihat kosong. Referensi desain dari Canva dengan tema warna kuning/gold dan olive/abu-abu.
 
-## What's Been Implemented
+## Architecture & Tech Stack
+- **Frontend**: React.js with Tailwind CSS
+- **Backend**: FastAPI (Python)
+- **Database**: MongoDB
+- **UI Components**: Shadcn UI
 
-### Bug Fix (Session 1 - Jan 26, 2026)
-- Fixed `isActive` query filter di backend (questions.py)
-- Fixed field mismatch `text` vs `question`
-- Fixed score format mismatch `score` vs `scores`
+## User Personas
+1. **Siswa/Mahasiswa** - mencari test kepribadian dan bakat
+2. **Korporasi/Yayasan** - mencari program pelatihan B2B
+3. **Individual** - mencari konseling dan pengembangan diri
 
-### New Features (Session 2 - Jan 26, 2026)
+## Core Requirements (Static)
+- Website company profile untuk NEWMECLASS
+- Slider/carousel untuk menampilkan informasi perusahaan
+- Section tentang produk dan layanan
+- Testimonial dari klien
+- Informasi visi misi dan kegiatan
 
-#### 1. AI Analysis Integration (Emergent LLM Key)
-- **File**: `/app/backend/routes/ai_analysis.py`
-- Integrated with GPT-4o via Emergent LLM Key
-- Generates comprehensive personality analysis with:
-  - 5 Element System (AIR, KAYU, API, TANAH, ANGIN)
-  - Personality Type (INTROVERT/EXTROVERT/AMBIVERT)
-  - Dominant Type & Element with percentages
-  - Kepribadian traits, Ciri Khas, Karakter
-  - Kekuatan Jatidiri (Kehidupan, Kesehatan, Kontribusi, Kekhasan, Kharisma)
-  - Kompilasi Adaptasi (15 practical tips)
-  - Career recommendations & development tips
+## What's Been Implemented (Jan 2026)
 
-## Midtrans Payment Gateway
-- **Status**: ✅ ACTIVE (Production Mode)
-- **Merchant ID**: G565626869
-- **Snap Payment**: ✅ Working
-- **QRIS Direct**: ⚠️ Payment channel not activated (use Snap instead)
-- **Redirect URL Format**: https://app.midtrans.com/snap/v4/redirection/{token}
+### New Components Added:
+1. **HeroCarousel.jsx** - Hero slider dengan 4 slides (Company Profile, Siapa Kami, Produk Usaha, Visi Misi)
+2. **AboutSection.jsx** - Section "Siapa Kami" dengan info PT. MITRA SEMESTA EDUCLASS
+3. **ProductSlider.jsx** - Slider produk usaha dengan 6 produk
+4. **ServicesSection.jsx** - Section produk jasa (B2B dan B2C)
+5. **TestimonialSlider.jsx** - Slider testimonial dari mitra dan klien
+6. **BenefitsSection.jsx** - 5 benefits untuk klien
+7. **ActivitiesSection.jsx** - 4 kegiatan (Outbound, Coaching, Edukasi, Kontes)
+8. **VisiMisiSection.jsx** - Visi dan Misi NEWMECLASS
 
-### Endpoints
-- `POST /api/user-payments/create-snap-payment` - Create Snap payment ✅
-- `POST /api/user-payments/create-qris` - Create QRIS (needs activation)
-- `POST /api/user-payments/midtrans-notification` - Webhook handler
-- `GET /api/user-payments/check-payment/{order_id}` - Check status
+### Design Theme Applied:
+- Primary Color: #D4A017 (Gold/Yellow)
+- Secondary Color: #5A5A4A (Olive/Gray)
+- Dark Background: #1a1a1a, #2a2a2a
 
-#### 3. PDF Certificate Generation
-- **File**: `/app/backend/routes/certificates.py`
-- Layout styled like NEWME CLASS template
-- **Endpoint**: `GET /api/certificates/download-ai-certificate`
+### Features:
+- Auto-play sliders dengan interval
+- Manual navigation (prev/next buttons)
+- Dot indicators untuk slide position
+- Progress bars
+- Responsive design
+- Grayscale to color hover effects pada gambar
 
-### Admin Management (Session 3 - Jan 26, 2026)
+## Testing Status
+- Frontend: 95% passed
+- All sliders functional
+- All sections rendering correctly
+- Color theme consistent
 
-#### 1. Demo Credentials Removed
-- **File**: `/app/frontend/src/pages/admin/AdminLogin.jsx`
-- Removed demo user info from login page
+## Prioritized Backlog
 
-#### 2. Admin User Management
-- **Backend File**: `/app/backend/routes/admin.py`
-- **Frontend File**: `/app/frontend/src/pages/admin/AdminUsers.jsx`
-- New endpoints:
-  - `GET /api/admin/users` - Get all admins (superadmin only)
-  - `POST /api/admin/users/create` - Create new admin
-  - `PUT /api/admin/users/{id}/change-password` - Change password
-  - `DELETE /api/admin/users/{id}` - Delete admin
-- Features:
-  - List all admin users
-  - Create new admin (superadmin only)
-  - Change password (own or any for superadmin)
-  - Delete admin (superadmin only, can't delete self)
+### P0 (Critical) - DONE
+- [x] Hero Carousel
+- [x] About Section
+- [x] Product Slider
+- [x] Services Section
+- [x] Testimonial Slider
+- [x] Benefits Section
+- [x] Activities Section
+- [x] Visi Misi Section
 
-#### 3. New Admin User Created
-- **Email**: admin@newmeclass.id
-- **Password**: p4sw0rdnewmeclass
-- **Role**: superadmin
+### P1 (High Priority)
+- [ ] Partner/Mitra logo carousel
+- [ ] Director message section
+- [ ] KELAS SNMPTN section details
 
-## Tech Stack
-- Frontend: React.js with Tailwind CSS, Shadcn UI
-- Backend: FastAPI (Python)
-- Database: MongoDB
-- AI: Emergent LLM Key (GPT-4o)
-- Payment: Midtrans (Snap + Core API)
-- PDF: ReportLab
+### P2 (Medium Priority)
+- [ ] More testimonials from database
+- [ ] Dynamic content from admin panel
+- [ ] Animation improvements
 
-## Admin Credentials
-- **Email**: admin@newmeclass.id
-- **Password**: p4sw0rdnewmeclass
-- **Role**: superadmin
-
-## Test Results
-- Backend: 100% ✅
-- Frontend: 90% ✅ (minor modal z-index issue fixed)
-
-## Next Action Items
-- [ ] Configure Midtrans API keys for live payment
-- [ ] Test full payment flow with Midtrans sandbox
-
-## Future/Backlog
-- P1: Email notification dengan hasil test
-- P1: WhatsApp notification integration
-- P2: Social sharing untuk hasil test
-- P2: Analytics dashboard untuk admin
+## Next Tasks
+1. Add more testimonials through admin panel
+2. Implement partner logos carousel
+3. Add director message section if needed
+4. Consider adding KELAS SNMPTN detailed section
