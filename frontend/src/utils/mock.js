@@ -23,8 +23,8 @@ export const visiMisi = {
 export const services = [
   {
     id: 'test',
-    name: 'NEWME_TEST',
-    title: 'TEST',
+    name: '5 Test Dasar Gratis',
+    title: '5 TEST GRATIS',
     description: 'Observasi mandiri untuk mengenal potensi dan bakat alami Anda',
     icon: 'ClipboardList',
     color: '#FFD700',
@@ -33,7 +33,8 @@ export const services = [
       'Analisis bakat dan potensi tersembunyi',
       'Sertifikat digital',
       'Konsultasi hasil tes'
-    ]
+    ],
+    link: '/newme-test'
   },
   {
     id: 'clinic',
