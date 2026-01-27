@@ -30,7 +30,7 @@ const Navbar = () => {
       name: 'Layanan', 
       href: '#',
       dropdown: [
-        { name: 'NEWME TEST', href: '/newme-test' },
+        { name: '5 Test Dasar Gratis', href: '/newme-test' },
         { name: 'NEWME CLINIC', href: '/services/clinic' },
         { name: 'NEWME CLASS', href: '/services/class' },
         { name: 'NEWME GALLERY', href: '/services/gallery' },
