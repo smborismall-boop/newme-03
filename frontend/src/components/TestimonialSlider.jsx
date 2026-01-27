@@ -97,7 +97,7 @@ const TestimonialSlider = () => {
               <div
                 key={testimonial.id}
                 className={`transition-all duration-700 ${
-                  isActive ? 'opacity-100 relative' : 'opacity-0 absolute inset-0'
+                  isActive ? 'opacity-100 relative' : 'opacity-0 absolute inset-0 pointer-events-none'
                 }`}
               >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
