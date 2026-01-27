@@ -18,7 +18,8 @@ import {
   FileText,
   MessageSquare,
   UsersRound,
-  Shield
+  Shield,
+  Layout
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { useToast } from '../../hooks/use-toast';
