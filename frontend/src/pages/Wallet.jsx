@@ -130,7 +130,7 @@ const Wallet = () => {
       setShowTopup(false);
       setTopupAmount('');
       setQrData(null);
-      loadWalletData(user._id);
+      loadWalletData(user.id || user._id);
     } catch (error) {
       toast({
         title: 'Error',
@@ -157,7 +157,7 @@ const Wallet = () => {
         setShowTopup(false);
         setQrData(null);
         setTopupAmount('');
-        loadWalletData(user._id);
+        loadWalletData(user.id || user._id);
       } else if (response.data.status === 'pending') {
         toast({
           title: 'Menunggu Pembayaran',
