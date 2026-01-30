@@ -26,6 +26,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import UserDashboard from './pages/UserDashboard';
 import UserTest from './pages/UserTest';
+import Wallet from './pages/Wallet';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './pages/admin/AdminLayout';
 import DashboardHome from './pages/admin/DashboardHome';
