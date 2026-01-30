@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   User, CreditCard, Award, FileText, LogOut, Upload, Clock, CheckCircle, XCircle, 
-  ShoppingBag, ChevronRight, Copy, Share2, Gift, AlertCircle, Play, Lock, Sparkles
+  ShoppingBag, ChevronRight, Copy, Share2, Gift, AlertCircle, Play, Lock, Sparkles, Wallet
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
