@@ -188,3 +188,258 @@ async def reorder_questions(
         return {"success": True, "message": "Questions reordered successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+
+@router.post("/seed-questions")
+async def seed_questions():
+    """Seed default questions - 5 free + 10 paid"""
+    try:
+        # Check if questions already exist
+        count = await db.questions.count_documents({})
+        if count > 0:
+            return {"message": "Questions already exist", "count": count}
+        
+        # 5 Free Questions (Pertanyaan Gratis)
+        free_questions = [
+            {
+                "text": "Ketika menghadapi masalah, saya lebih suka:",
+                "question": "Ketika menghadapi masalah, saya lebih suka:",
+                "category": "personality",
+                "options": [
+                    {"text": "Menganalisis secara logis dan sistematis", "value": "A", "score": 1},
+                    {"text": "Mengikuti intuisi dan perasaan", "value": "B", "score": 2},
+                    {"text": "Berdiskusi dengan orang lain", "value": "C", "score": 3},
+                    {"text": "Mencoba berbagai solusi langsung", "value": "D", "score": 4}
+                ],
+                "order": 1,
+                "isFree": True,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Dalam situasi sosial, saya cenderung:",
+                "question": "Dalam situasi sosial, saya cenderung:",
+                "category": "personality",
+                "options": [
+                    {"text": "Menjadi pusat perhatian dan aktif berbicara", "value": "A", "score": 1},
+                    {"text": "Mendengarkan dan mengamati lebih banyak", "value": "B", "score": 2},
+                    {"text": "Bergantung pada situasi dan suasana", "value": "C", "score": 3},
+                    {"text": "Memilih berinteraksi dengan kelompok kecil", "value": "D", "score": 4}
+                ],
+                "order": 2,
+                "isFree": True,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Saat bekerja dalam tim, peran yang paling cocok untuk saya adalah:",
+                "question": "Saat bekerja dalam tim, peran yang paling cocok untuk saya adalah:",
+                "category": "talent",
+                "options": [
+                    {"text": "Pemimpin yang mengarahkan", "value": "A", "score": 1},
+                    {"text": "Kreator ide dan inovasi", "value": "B", "score": 2},
+                    {"text": "Pelaksana yang detail", "value": "C", "score": 3},
+                    {"text": "Mediator yang menjaga harmoni", "value": "D", "score": 4}
+                ],
+                "order": 3,
+                "isFree": True,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Kegiatan yang paling menarik bagi saya adalah:",
+                "question": "Kegiatan yang paling menarik bagi saya adalah:",
+                "category": "interest",
+                "options": [
+                    {"text": "Membaca dan mempelajari hal baru", "value": "A", "score": 1},
+                    {"text": "Berkreasi dan membuat sesuatu", "value": "B", "score": 2},
+                    {"text": "Berolahraga dan aktivitas fisik", "value": "C", "score": 3},
+                    {"text": "Bersosialisasi dan membantu orang lain", "value": "D", "score": 4}
+                ],
+                "order": 4,
+                "isFree": True,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Ketika mengambil keputusan penting, saya lebih mengandalkan:",
+                "question": "Ketika mengambil keputusan penting, saya lebih mengandalkan:",
+                "category": "personality",
+                "options": [
+                    {"text": "Data dan fakta yang jelas", "value": "A", "score": 1},
+                    {"text": "Perasaan dan nilai-nilai personal", "value": "B", "score": 2},
+                    {"text": "Saran dari orang yang dipercaya", "value": "C", "score": 3},
+                    {"text": "Pengalaman masa lalu", "value": "D", "score": 4}
+                ],
+                "order": 5,
+                "isFree": True,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            }
+        ]
+        
+        # 10 Paid Questions (Pertanyaan Berbayar)
+        paid_questions = [
+            {
+                "text": "Bagaimana cara Anda mengelola stres?",
+                "question": "Bagaimana cara Anda mengelola stres?",
+                "category": "personality",
+                "options": [
+                    {"text": "Berolahraga atau aktivitas fisik", "value": "A", "score": 1},
+                    {"text": "Meditasi atau relaksasi", "value": "B", "score": 2},
+                    {"text": "Berbicara dengan orang terdekat", "value": "C", "score": 3},
+                    {"text": "Fokus menyelesaikan sumber stres", "value": "D", "score": 4}
+                ],
+                "order": 6,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Dalam berkomunikasi, saya lebih efektif dengan:",
+                "question": "Dalam berkomunikasi, saya lebih efektif dengan:",
+                "category": "skills",
+                "options": [
+                    {"text": "Tulisan yang terstruktur", "value": "A", "score": 1},
+                    {"text": "Presentasi visual", "value": "B", "score": 2},
+                    {"text": "Diskusi langsung", "value": "C", "score": 3},
+                    {"text": "Demonstrasi praktik", "value": "D", "score": 4}
+                ],
+                "order": 7,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Apa yang paling memotivasi Anda dalam bekerja?",
+                "question": "Apa yang paling memotivasi Anda dalam bekerja?",
+                "category": "interest",
+                "options": [
+                    {"text": "Pencapaian dan pengakuan", "value": "A", "score": 1},
+                    {"text": "Pembelajaran dan pertumbuhan", "value": "B", "score": 2},
+                    {"text": "Stabilitas dan keamanan", "value": "C", "score": 3},
+                    {"text": "Dampak positif pada orang lain", "value": "D", "score": 4}
+                ],
+                "order": 8,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Bagaimana Anda menghadapi perubahan?",
+                "question": "Bagaimana Anda menghadapi perubahan?",
+                "category": "personality",
+                "options": [
+                    {"text": "Dengan antusias dan cepat beradaptasi", "value": "A", "score": 1},
+                    {"text": "Dengan hati-hati setelah pertimbangan matang", "value": "B", "score": 2},
+                    {"text": "Dengan mencari dukungan dari orang lain", "value": "C", "score": 3},
+                    {"text": "Dengan fokus pada hal yang bisa dikontrol", "value": "D", "score": 4}
+                ],
+                "order": 9,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Lingkungan kerja ideal untuk saya adalah:",
+                "question": "Lingkungan kerja ideal untuk saya adalah:",
+                "category": "interest",
+                "options": [
+                    {"text": "Dinamis dengan banyak tantangan", "value": "A", "score": 1},
+                    {"text": "Terstruktur dan terorganisir", "value": "B", "score": 2},
+                    {"text": "Kolaboratif dan suportif", "value": "C", "score": 3},
+                    {"text": "Fleksibel dan mandiri", "value": "D", "score": 4}
+                ],
+                "order": 10,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Kekuatan utama saya adalah:",
+                "question": "Kekuatan utama saya adalah:",
+                "category": "talent",
+                "options": [
+                    {"text": "Berpikir analitis dan kritis", "value": "A", "score": 1},
+                    {"text": "Kreativitas dan inovasi", "value": "B", "score": 2},
+                    {"text": "Empati dan komunikasi", "value": "C", "score": 3},
+                    {"text": "Organisasi dan eksekusi", "value": "D", "score": 4}
+                ],
+                "order": 11,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Ketika belajar hal baru, saya lebih suka:",
+                "question": "Ketika belajar hal baru, saya lebih suka:",
+                "category": "skills",
+                "options": [
+                    {"text": "Membaca dan meneliti sendiri", "value": "A", "score": 1},
+                    {"text": "Menonton video atau tutorial visual", "value": "B", "score": 2},
+                    {"text": "Diskusi dan belajar bersama", "value": "C", "score": 3},
+                    {"text": "Langsung praktik dan coba-coba", "value": "D", "score": 4}
+                ],
+                "order": 12,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Apa yang membuat Anda merasa paling puas?",
+                "question": "Apa yang membuat Anda merasa paling puas?",
+                "category": "interest",
+                "options": [
+                    {"text": "Menyelesaikan proyek yang menantang", "value": "A", "score": 1},
+                    {"text": "Menciptakan sesuatu yang unik", "value": "B", "score": 2},
+                    {"text": "Membantu orang lain sukses", "value": "C", "score": 3},
+                    {"text": "Mencapai target yang ditetapkan", "value": "D", "score": 4}
+                ],
+                "order": 13,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Bagaimana Anda menangani konflik?",
+                "question": "Bagaimana Anda menangani konflik?",
+                "category": "personality",
+                "options": [
+                    {"text": "Menghadapi langsung dengan tegas", "value": "A", "score": 1},
+                    {"text": "Mencari kompromi yang adil", "value": "B", "score": 2},
+                    {"text": "Menghindari dan memberi waktu", "value": "C", "score": 3},
+                    {"text": "Mencari mediator atau bantuan", "value": "D", "score": 4}
+                ],
+                "order": 14,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            },
+            {
+                "text": "Apa tujuan karir jangka panjang Anda?",
+                "question": "Apa tujuan karir jangka panjang Anda?",
+                "category": "interest",
+                "options": [
+                    {"text": "Menjadi ahli di bidang tertentu", "value": "A", "score": 1},
+                    {"text": "Memimpin tim atau organisasi", "value": "B", "score": 2},
+                    {"text": "Memiliki bisnis sendiri", "value": "C", "score": 3},
+                    {"text": "Memberikan kontribusi sosial", "value": "D", "score": 4}
+                ],
+                "order": 15,
+                "isFree": False,
+                "isActive": True,
+                "createdAt": datetime.utcnow()
+            }
+        ]
+        
+        # Insert all questions
+        all_questions = free_questions + paid_questions
+        await db.questions.insert_many(all_questions)
+        
+        return {
+            "message": "Questions seeded successfully",
+            "free_count": len(free_questions),
+            "paid_count": len(paid_questions),
+            "total": len(all_questions)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
