@@ -84,6 +84,7 @@ app.include_router(personality_tests_router)
 app.include_router(test_access_router)
 app.include_router(ai_analysis_router)
 app.include_router(website_content_router)
+app.include_router(wallet_router)
 
 # Include the base api router
 app.include_router(api_router)
