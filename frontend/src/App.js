@@ -27,6 +27,7 @@ import Register from './pages/auth/Register';
 import UserDashboard from './pages/UserDashboard';
 import UserTest from './pages/UserTest';
 import Wallet from './pages/Wallet';
+import TestResult from './pages/TestResult';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './pages/admin/AdminLayout';
 import DashboardHome from './pages/admin/DashboardHome';
@@ -103,6 +104,7 @@ const AppContent = () => {
             <Route path="/dashboard" element={<UserDashboard />} />
             <Route path="/user-test" element={<UserTest />} />
             <Route path="/wallet" element={<Wallet />} />
+            <Route path="/test-result/:resultId" element={<TestResult />} />
             
             {/* Public routes with navbar/footer */}
             <Route path="/*" element={
