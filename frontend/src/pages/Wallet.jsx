@@ -48,7 +48,7 @@ const Wallet = () => {
       }
       const response = await authAPI.getProfile();
       setUser(response.data);
-      loadWalletData(response.data._id);
+      loadWalletData(response.data.id || response.data._id);
     } catch (error) {
       navigate('/login');
     }
@@ -118,7 +118,7 @@ const Wallet = () => {
     try {
       setProcessingTopup(true);
       const response = await axios.post(`${BACKEND_URL}/api/wallet/demo-topup`, {
-        userId: user._id,
+        userId: user.id || user._id,
         amount: amount
       });
       
