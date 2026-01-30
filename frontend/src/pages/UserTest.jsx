@@ -234,12 +234,18 @@ const UserTest = () => {
 
     // Save results to backend
     try {
-      await axios.post(`${BACKEND_URL}/api/test-results`, {
+      const saveResponse = await axios.post(`${BACKEND_URL}/api/test-results`, {
         userId: user._id,
         testType,
         results: result,
         answers
       });
+      
+      // Redirect to result page with the result ID
+      if (saveResponse.data.resultId) {
+        navigate(`/test-result/${saveResponse.data.resultId}`);
+        return;
+      }
     } catch (error) {
       console.error('Failed to save results:', error);
     }
