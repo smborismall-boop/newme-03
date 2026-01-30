@@ -191,12 +191,10 @@ async def reorder_questions(
 
 @router.post("/seed-questions")
 async def seed_questions():
-    """Seed default questions - 5 free + 10 paid"""
+    """Seed default questions - 5 free + 25 paid"""
     try:
-        # Check if questions already exist
-        count = await db.questions.count_documents({})
-        if count > 0:
-            return {"message": "Questions already exist", "count": count}
+        # Delete existing questions and re-seed
+        await db.questions.delete_many({})
         
         # 5 Free Questions (Pertanyaan Gratis)
         free_questions = [
